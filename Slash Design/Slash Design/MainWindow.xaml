@@ -1,0 +1,199 @@
+﻿<Window x:Name="window" x:Class="Slash_Design.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Slash_Design"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="#02FFFFFF"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        Title="Slash Design" Height="395" Width="325" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Topmost="True">
+    <Window.Resources>
+        <Style x:Key="SampleRectangle" TargetType="{x:Type Rectangle}">
+            <Style.Triggers>
+                <Trigger Property="Border.IsMouseOver" Value="True">
+                    <Setter Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="1.5" ScaleY="1.5" CenterX="20" CenterY="15"/>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="aux" MaxHeight="395" MaxWidth="325" Background="{DynamicResource MaterialDesignPaper}">
+        <Grid.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform/>
+                <TranslateTransform x:Name="tt" X="0" Y="0"/>
+            </TransformGroup>
+        </Grid.RenderTransform>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="30*"/>
+        </Grid.RowDefinitions>
+        <!--El borde contiene los controles de la ventana (cerrar, minimizar)-->
+        <Border Grid.Row="0" Grid.Column="0" MouseLeftButtonDown="Border_MouseLeftButtonDown" Background="#00E91E63" Grid.ColumnSpan="2">
+            <DockPanel Height="auto" Width="auto">
+                <Button x:Name="btn_close" Height="Auto" Width="40" Style="{DynamicResource MaterialDesignFlatButton}" DockPanel.Dock="Right" Click="btn_close_Click">
+                    <materialDesign:PackIcon Kind="WindowClose" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Button>
+
+                <Button x:Name="btn_minimize" Width="40" Height="auto" Style="{DynamicResource MaterialDesignFlatButton}" DockPanel.Dock="Right" HorizontalAlignment="Right" Click="btn_minimize_Click">
+                    <materialDesign:PackIcon Kind="WindowMinimize" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Button>
+            </DockPanel>
+        </Border>
+
+        <!--Comienzo los controles de la toolbar de la izquierda-->
+        <Button x:Name="btn_pickColor" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Style="{DynamicResource MaterialDesignFlatButton}" Height="37" ToolTip="Color Picker" Cursor="Arrow" Grid.Row="1" Foreground="#EC407A" Click="btn_pickColor_Click">
+            <materialDesign:PackIcon Kind="Eyedropper" Height="10" Width="20" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                <materialDesign:PackIcon.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="2" ScaleX="2"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </materialDesign:PackIcon.RenderTransform>
+            </materialDesign:PackIcon>
+        </Button>
+        <Button x:Name="btn_paletteColor" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top" Width="40"  Style="{DynamicResource MaterialDesignFlatButton}" Height="37" ToolTip="Color Palette" Cursor="Arrow" Margin="0,37,0,0" Foreground="#EC407A" IsEnabled="False">
+            <materialDesign:PackIcon Kind="PaletteSwatch" Height="10" Width="15" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                <materialDesign:PackIcon.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="2" ScaleY="2"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </materialDesign:PackIcon.RenderTransform>
+            </materialDesign:PackIcon>
+        </Button>
+        <Button x:Name="btn_randomColor" HorizontalAlignment="Left" Margin="0,111,0,0" Grid.Row="1" VerticalAlignment="Top" Width="40"  Style="{DynamicResource MaterialDesignFlatButton}" Height="37" ToolTip="Random Color" Cursor="Arrow" Foreground="#EC407A" Click="btn_randomColor_Click">
+            <materialDesign:PackIcon Kind="AutoFix" Height="8" Width="10" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                <materialDesign:PackIcon.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="3" ScaleY="3"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </materialDesign:PackIcon.RenderTransform>
+            </materialDesign:PackIcon>
+        </Button>
+        <Button x:Name="btn_theme" HorizontalAlignment="Left" Margin="0,148,0,0" Grid.Row="1" VerticalAlignment="Top" Width="40"  Style="{DynamicResource MaterialDesignFlatButton}" Height="37" ToolTip="Theme" Cursor="Arrow" Click="OnThemeChange" Foreground="#EC407A">
+            <materialDesign:PackIcon Kind="BrightnessMedium" Height="8" Width="10" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                <materialDesign:PackIcon.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="3" ScaleY="3"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </materialDesign:PackIcon.RenderTransform>
+            </materialDesign:PackIcon>
+        </Button>
+
+        <!--Este es el contenido de la aplicacion-->
+        <Slider x:Name="sld_red" Minimum="0" Maximum="255" HorizontalAlignment="Left" Margin="10,19,0,0" VerticalAlignment="Top" Width="200" Grid.Row="1" Grid.Column="1" Foreground="#F44336" IsSnapToTickEnabled="True" ValueChanged="OnChangeColor" Value="{Binding ElementName=txt_red, Path=Text}"/>
+        <Slider x:Name="sld_green" Minimum="0" Maximum="255" HorizontalAlignment="Left" Margin="10,56,0,0" VerticalAlignment="Top" Width="200" Grid.Row="1" Grid.Column="1" Foreground="#8BC34A" IsSnapToTickEnabled="True" ValueChanged="OnChangeColor" Value="{Binding ElementName=txt_green, Path=Text}"/>
+        <Slider x:Name="sld_blue" Minimum="0" Maximum="255" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" Width="200" Grid.Row="1" Grid.Column="1" Foreground="#03A9F4" IsSnapToTickEnabled="True" ValueChanged="OnChangeColor" Value="{Binding ElementName=txt_blue, Path=Text}"/>
+        <Slider x:Name="sld_alpha" Minimum="0" Maximum="100" HorizontalAlignment="Left" Margin="35,130,0,0" VerticalAlignment="Top" Width="175" Grid.Row="1" Grid.Column="1" Foreground="#9E9E9E" IsSnapToTickEnabled="True" ValueChanged="OnChangeColor" Value="{Binding ElementName=txt_alpha, Path=Text}" IsEnabled="False"/>
+        <TextBox x:Name="txt_red" Grid.Column="1" HorizontalAlignment="Left" Height="25" Margin="230,5,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="45" PreviewTextInput="OnTextChange" TextChanged="OnTextChange" MaxLength="3" Text="{Binding ElementName=sld_red, Path=Value}"/>
+        <TextBox x:Name="txt_green" Grid.Column="1" HorizontalAlignment="Left" Height="25" Margin="230,42,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="45" MaxLength="3" PreviewTextInput="OnTextChange" TextChanged="OnTextChange" Text="{Binding ElementName=sld_green, Path=Value}"/>
+        <TextBox x:Name="txt_blue" Grid.Column="1" HorizontalAlignment="Left" Height="25" Margin="230,79,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="45" MaxLength="3" PreviewTextInput="OnTextChange"  TextChanged="OnTextChange" Text="{Binding ElementName=sld_blue, Path=Value}"/>
+        <TextBox x:Name="txt_alpha" Grid.Column="1" HorizontalAlignment="Left" Height="25" Margin="230,116,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="45" MaxLength="3" PreviewTextInput="OnTextChange" TextChanged="OnTextChange" Text="{Binding ElementName=sld_alpha, Path=Value}" IsEnabled="False"/>
+        <!--En este borde es color que selecciono el usuario-->
+        <Canvas x:Name="content_box_color" Grid.ColumnSpan="2" Grid.Row="2" Height="auto" Width="auto">
+            <Canvas.Background>
+                <ImageBrush ImageSource="C:\Users\arely\Documents\programacion\c#\mis programas\Proyectos\Slash color convert\2018.1\Slash Design\background.png" Stretch="UniformToFill" />
+            </Canvas.Background>
+            <Rectangle x:Name="box_color" Width="{Binding ElementName=content_box_color, Path=ActualWidth}" Height="{Binding ElementName=content_box_color, Path=ActualHeight}" Fill="Lavender"/>
+            <TextBox x:Name="txt_hex" HorizontalAlignment="Center" VerticalAlignment="Center" Text="HEX CODE" Width="75" Canvas.Left="130" Canvas.Top="52" MaxLength="9" PreviewTextInput="OnTextChange" TextChanged="OnTextChange"/>
+        </Canvas>
+        <ToggleButton x:Name="tgb_alpha" Grid.Column="1" Margin="5,126,255,71" Grid.Row="1" Style="{StaticResource MaterialDesignFlatToggleButton}" Height="25" Width="25" IsChecked="False" Checked="OnCheckedChange"  Unchecked="OnCheckedChange" ToolTip="Enable Alpha Slider">
+            <materialDesign:PackIcon Kind="Check"/>
+        </ToggleButton>
+        <materialDesign:DrawerHost Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Row="1" Width="auto" Margin="0,0,0,0">
+            <Grid>
+                <Button x:Name="btn_shading" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Style="{DynamicResource MaterialDesignFlatButton}" Height="37" ToolTip="Color Shading" Cursor="Arrow" Grid.Row="1" Foreground="#EC407A" Click="btn_shadingColor_Click" Margin="0,74,0,0" Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" CommandParameter="{x:Static Dock.Bottom}">
+                    <materialDesign:PackIcon Kind="Cards" Height="10" Width="20" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                        <materialDesign:PackIcon.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleY="2" ScaleX="2"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </materialDesign:PackIcon.RenderTransform>
+                    </materialDesign:PackIcon>
+                </Button>
+                <Button x:Name="btn_about" HorizontalAlignment="Left" Margin="0,185,0,0" Grid.Row="1" VerticalAlignment="Top" Width="40"  Style="{DynamicResource MaterialDesignFlatButton}" Height="37" ToolTip="Theme" Cursor="Arrow" Click="btn_about_Click" Foreground="#EC407A" Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" CommandParameter="{x:Static Dock.Bottom}">
+                    <materialDesign:PackIcon Kind="InfoOutline" Height="8" Width="10" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                        <materialDesign:PackIcon.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform ScaleX="3.3" ScaleY="3.3"/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </materialDesign:PackIcon.RenderTransform>
+                    </materialDesign:PackIcon>
+                </Button>
+            </Grid>
+            <materialDesign:DrawerHost.BottomDrawerContent>
+                <Grid x:Name="content_bottom" HorizontalAlignment="Center" Width="{Binding ElementName=content_box_color, Path=ActualWidth}" Height="{Binding ElementName=content_box_color, Path=ActualHeight}">
+                    <Grid x:Name="content_about">
+                        <Button HorizontalAlignment="Right" VerticalAlignment="Top" Width="40" Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" CommandParameter="{x:Static Dock.Bottom}" Style="{DynamicResource MaterialDesignFlatButton}" Foreground="{DynamicResource SecondaryAccentBrush}">
+                            <materialDesign:PackIcon Kind="WindowClose" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Button>
+                        <Label Content="About" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Width="105" Margin="0,7,0,0"/>
+                        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" DockPanel.Dock="Left" Height="103" Width="245">
+                            <Label Content="Slash Design 2018.1" Width="auto"/>
+                            <Label Content="Microsoft .Net 4.6.1" Width="auto"/>
+                            <Label Content="Developed by Arely Moron" Width="auto"/>
+                            <Label Content="Thank's To Kevin B." Width="auto"/>
+                        </StackPanel>
+                        <Button x:Name="btn_vcode" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="275,0,0,10" Width="40" Style="{DynamicResource MaterialDesignFlatButton}" ToolTip="View Code" Foreground="{DynamicResource SecondaryAccentBrush}" Click="btn_vcode_Click">
+                            <materialDesign:PackIcon Kind="GithubCircle" HorizontalAlignment="Center" Width="8" Height="8" RenderTransformOrigin="0.5,0.5">
+                                <materialDesign:PackIcon.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="3" ScaleY="3"/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </materialDesign:PackIcon.RenderTransform>
+                            </materialDesign:PackIcon>
+                        </Button>
+                    </Grid>
+                    <Grid x:Name="content_shading">
+                        <Rectangle x:Name="sample_1" Fill="Black" Width="30" Height="30" Style="{DynamicResource SampleRectangle}" MouseLeftButtonDown="OnClick_Sample"/>
+                        <Rectangle x:Name="sample_2" Fill="Black" Width="30" Height="30" Margin="182,51,113,52" Style="{DynamicResource SampleRectangle}" MouseLeftButtonDown="OnClick_Sample"/>
+                        <Rectangle x:Name="sample_6" Fill="Black" Width="30" Height="30" Margin="112,51,183,52" Style="{DynamicResource SampleRectangle}" MouseLeftButtonDown="OnClick_Sample"/>
+                        <Rectangle x:Name="sample_7" Fill="Black" Width="30" Height="30" Margin="77,52,218,51" Style="{DynamicResource SampleRectangle}" MouseLeftButtonDown="OnClick_Sample"/>
+                        <Rectangle x:Name="sample_8" Fill="Black" Width="30" Height="30" Margin="42,52,253,51" Style="{DynamicResource SampleRectangle}" MouseLeftButtonDown="OnClick_Sample"/>
+                        <Rectangle x:Name="sample_9" Fill="Black" Width="30" Height="30" Margin="7,52,288,51" Style="{DynamicResource SampleRectangle}" MouseLeftButtonDown="OnClick_Sample"/>
+                        <Rectangle x:Name="sample_3" Fill="Black" Width="30" Height="30" Margin="217,51,78,52" Style="{DynamicResource SampleRectangle}" MouseLeftButtonDown="OnClick_Sample"/>
+                        <Rectangle x:Name="sample_4" Fill="Black" Width="30" Height="30" Margin="252,52,43,51" Style="{DynamicResource SampleRectangle}" MouseLeftButtonDown="OnClick_Sample"/>
+                        <Rectangle x:Name="sample_5" Fill="Black" Width="30" Height="30" Margin="287,52,8,51" Style="{DynamicResource SampleRectangle}" MouseLeftButtonDown="OnClick_Sample"/>
+                        <materialDesign:Snackbar x:Name="snackbar" MessageQueue="{materialDesign:MessageQueue}"/>
+                    </Grid>
+                </Grid>
+            </materialDesign:DrawerHost.BottomDrawerContent>
+
+        </materialDesign:DrawerHost>
+    </Grid>
+</Window>
