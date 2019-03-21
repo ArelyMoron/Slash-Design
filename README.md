@@ -1,5 +1,6 @@
 # Slash Design
 Desktop tool app to get colors
+you can download this app from https://drive.google.com/open?id=1pDkCK49K9JHpk0iDSBntszxE9BPn1oO3
 
 ## Slash design menu features
 Sliders to select color from rgb
